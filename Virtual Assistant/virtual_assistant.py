@@ -19,13 +19,11 @@ def query(prompt : str):
 
 def map_response(response : str):
     """Dynamically match responses to functions if possible"""
-    response = response.split(" ")
-    response = [segment for segment in response if "(" in segment] # note, train to have a special token to appear if the text contains a function
-    # ["get_weather(...)"] / ["internet_search(...)"] / ...
-    if response[0][:10] == "get_weather":
-        eval(response[0])
+    if "(" in response:
+        eval(response)
     else:
-        return -1
+        print(response)
+
 
 
 # Callable functions for the model
@@ -41,11 +39,8 @@ def main():
     while not end:
         user_input = input("Query: ")
         response = query(user_input)
-        match (response):
-            case -1:
-                print(response)
-            case _:
-                map_response(response)
+        map_response(response)
+
 
 
 if __name__ == "__main__":
