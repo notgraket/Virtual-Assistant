@@ -18,9 +18,12 @@ def query(prompt : str):
 
 
 def map_response(response : str):
-    """Dynamically match responses to functions if possible"""
+    """Match responses to functions if possible"""
     if "(" in response:
-        eval(response)
+        try:
+            eval(response)
+        except:
+            print("Function not found")
     else:
         print(response)
 
@@ -30,18 +33,33 @@ def map_response(response : str):
 
 def get_weather(city, state):
     """Get the weather data for the city in a given state"""
-    print("called get_weather")
+    url = f"https://geocoding-api.open-meteo.com/v1/search?name={city}&count=3&language=en&format=json&countryCode=US"
+    responses = requests.get(url).json()
+
+    for response in responses['results']:
+        if response['admin1'] == state and response['name'] == city:
+            break
+    
+    lat, long = response['latitude'], response['longitude']
+    weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}2&longitude={long}&hourly=temperature_2m&current=temperature_2m,rain,wind_speed_10m&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch"
+    responses = requests.get(weather_url).json()
+    temperature = responses['current']['temperature_2m']
+
+    print(f"It's currently {temperature} degrees in {city}")
+    
+    
 
 
-# If you run the script without -i this will run
+# Running the script outright will run this
 def main():
+    print("Enter 'end' to exit")
     end = False
     while not end:
         user_input = input("Query: ")
+        if (user_input == "end"): 
+            return
         response = query(user_input)
         map_response(response)
-
-
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,11 @@
 # Virtual Assistant
 
-Requirements: Python 3.10+ and the 'transformers' library installed
+Requirements: 
+    Python 3.10+ 
+    Modules: 
+        HuggingFace's 'transformers', 
+        Open-Meteo's 'openmeteo-requests' 'requests-cache' 'retry-requests', 
+        numpy, and pandas
 
 This is a virtual assistant created to further my understanding of machine learning and llms.
 Currently I'm using HuggingFace's distilgpt2 model that has been fine tuned for function calling.
