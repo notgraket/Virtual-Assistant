@@ -11,6 +11,6 @@ Due to distilgpt2 being an extremely small model, it's not 100% accurate with it
 Notably the data this model was fine tuned on was procedurally generated, this also adds to the inaccuracy of its language processing.
 
 To get started, download the model and change the directory location in the script to its location on your drive.
-You can run the model in Ollama as normal or you can run the script with the -i flag to manually query it in the command line.
+Calling the model in ollama would work, however it works best nested into a program.
 
 
