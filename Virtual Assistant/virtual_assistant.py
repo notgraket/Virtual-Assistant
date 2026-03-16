@@ -23,7 +23,7 @@ def map_response(response : str):
         try:
             eval(response)
         except:
-            print("Function not found")
+            print(response)
     else:
         print(response)
 
